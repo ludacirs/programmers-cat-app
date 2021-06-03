@@ -1,0 +1,15 @@
+{
+  "name": "catapp",
+  "version": "1.0.0",
+  "description": "프로그래머스 과제관",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.0.0-beta.2"
+  }
+}
