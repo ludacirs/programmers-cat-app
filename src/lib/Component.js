@@ -1,9 +1,11 @@
 class Component {
     $target;
     $elem;
-    constructor($target) {
+    state;
+    constructor($target,state) {
         this.$target = $target;
         this.$elem = document.createElement('div');
+        this.state = state;
         this.setup();
         this.render();
     }
