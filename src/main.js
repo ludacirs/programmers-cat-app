@@ -13,6 +13,7 @@ class App{
     async init($target){
         this.state.data = await api.getRoot();
         this.$target = $target;
+        const breadcrumb = new Breadcrumb(this.$target,this.state);
     };
 }
 
