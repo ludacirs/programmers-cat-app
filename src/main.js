@@ -16,9 +16,24 @@ class App{
         // this.state.data = await api.getRoot();
         this.state.data = data;
         this.$target = $target;
-        const breadcrumb = new Breadcrumb(this.$target,this.state);
-        const nodes = new Nodes(this.$target,this.state);
+        this.breadcrumb = new Breadcrumb(this.$target,this.state);
+        this.nodes = new Nodes(this.$target, {
+            state: this.state,
+            handleClick: this.handleClick
+        });
     };
+
+
+    handleClick = ({target}) => {
+        const nextState = {...this.state};
+        nextState.path.push(target.dataset.name);
+        this.setState(nextState);
+    };
+
+    setState(nextState){
+        this.state = {...nextState};
+        // this.breadcrumb.setState(this.state);
+    }
 }
 
 

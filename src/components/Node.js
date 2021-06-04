@@ -2,11 +2,15 @@ import Component from "../lib/Component";
 
 class Node extends Component{
 
+    setup() {
+        super.setup();
+    }
+
     template() {
         const {name, type,id} = this.state;
         const fileType = this.getType(type);
         return`
-         <img dataset-id="${id}" dataset-name="${name}" src="./assets/${fileType}">
+         <img data-id="${id}" data-name="${name}" src="./assets/${fileType}">
          ${name ? `<div>${name}</div>` : ''}
 `;
     }
