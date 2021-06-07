@@ -8,7 +8,7 @@ class Breadcrumb extends Component{
 
     template() {
         const {path} = this.state;
-        return path.map(v=>`<div>${v}</div>`).join('');
+        return '<div>root</div>'+path.map(({name,id})=>`<div data-id='${id}'>${name}</div>`).join('');
     }
 
 }

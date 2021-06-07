@@ -4,7 +4,7 @@ class Component {
     state;
     constructor($target,state) {
         this.$target = $target;
-        this.state = {...state};
+        this.state = state;
         this.$elem = document.createElement('div');
         this.setup();
         this.setEvent();
@@ -34,7 +34,9 @@ class Component {
         });
     }
     setState(nextState){
-        this.state = {...nextState};
+        console.log('현재',this.state);
+        this.state = {...this.state, ...nextState};
+        console.log('changed',this.state);
         this.render();
     }
     render(){

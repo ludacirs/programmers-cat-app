@@ -4,9 +4,19 @@ import Node from "./Node";
 class Nodes extends Component {
     constructor() {
         super(...arguments);
-        const {data} = this.state.state;
+    }
+    render() {
+        super.render();
+        const {data,root} = this.state;
 
-        data.forEach(({id, name, type, filePath, parent},i)=>{
+        if(root){
+            const prev = new Node(this.$elem,{
+                name:'',
+                type:'PREV',
+                id: ''
+            });
+        }
+        data.forEach(({id, name, type, filePath})=>{
             const state = {
                 name : name,
                 type: type,
