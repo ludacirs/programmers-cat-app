@@ -2,9 +2,6 @@ import Component from "../lib/Component";
 import Node from "./Node";
 
 class Nodes extends Component {
-    constructor() {
-        super(...arguments);
-    }
     render() {
         super.render();
         const {data,root} = this.state;

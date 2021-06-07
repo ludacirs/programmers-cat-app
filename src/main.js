@@ -3,6 +3,7 @@ import Nodes from "./components/Nodes";
 import {data, dataId1} from "./mockup/mockup";
 import {api} from "./lib/api/api";
 import ImageViewer from "./components/ImageViewer";
+import Loading from "./components/Loading";
 
 class App{
     $target;
@@ -11,6 +12,7 @@ class App{
         root: true,
         filepath: '',
     };
+    load = false;
 
     constructor($target) {
         this.init($target);
@@ -34,25 +36,29 @@ class App{
             filepath : this.state.filepath,
             offModal : this.offModal,
         });
+        this.loading = new Loading(this.$target,{
+            load : this.load
+        });
     };
 
 
     handleClick = async ({target}) => {
         const nextState = {...this.state};
+        this.loading.setState({load:true});
+        try {
 
-        if(target.dataset.type==='FILE'){
-            this.onFileClick(target,nextState);
+            if (target.dataset.type === 'FILE') {
+                this.onFileClick(target, nextState);
+            } else if (target.dataset.type === 'DIRECTORY') {
+                await this.onDirectoryClick(target, nextState);
+            } else if (target.dataset.type === 'PREV') {
+                await this.onPrevClick(target, nextState);
+            }
             this.setState(nextState);
-        } else
-        if(target.dataset.type==='DIRECTORY'){
-            await this.onDirectoryClick(target,nextState);
-            this.setState(nextState);
-        } else if(target.dataset.type==='PREV'){
-            await this.onPrevClick(target,nextState);
-            this.setState(nextState);
+            this.loading.setState({load:false});
+        }catch (e){
+            console.log(e);
         }
-
-
     };
 
     onDirectoryClick= async (target,nextState) =>{
@@ -76,8 +82,8 @@ class App{
 
     async searchDir(id){
         // //mockup
-        return id ? dataId1 : data;
-        // return id ? await api.getById(id) : data;
+        // return id ? dataId1 : data;
+        return id ? await api.getById(id) : data;
     }
     setState(nextState){
         this.state = {...nextState};

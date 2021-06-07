@@ -1,11 +1,6 @@
 import Component from "../lib/Component";
 
 class Node extends Component{
-
-    setup() {
-        super.setup();
-    }
-
     template() {
         const {name, type, id, filePath} = this.state;
         const fileType = this.getType(type);
