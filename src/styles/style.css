@@ -65,6 +65,9 @@ body {
     top: 0;
     background-color: rgba(0,0,0,0.3);
 }
+.Modal {
+    outline: none;
+}
 
 .Modal > div {
     position: fixed;

@@ -20,7 +20,8 @@ class Nodes extends Component {
             const state = {
                 name : name,
                 type: type,
-                id: id
+                id: id,
+                filePath: filePath,
             }
             new Node(this.$elem, state);
         });

@@ -7,11 +7,10 @@ class Node extends Component{
     }
 
     template() {
-        const {name, type,id} = this.state;
+        const {name, type, id, filePath} = this.state;
         const fileType = this.getType(type);
-        console.log(this.state);
         return`
-         <img data-id="${id}" data-name="${name}" data-type="${type}" src="./assets/${fileType}">
+         <img data-id="${id}" data-name="${name}" data-filePath="${filePath}" data-type="${type}" src="./assets/${fileType}">
          ${name ? `<div>${name}</div>` : ''}
 `;
     }

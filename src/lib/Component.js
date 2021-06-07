@@ -34,7 +34,7 @@ class Component {
         });
     }
     setState(nextState){
-        console.log('현재',this.state);
+        console.log('past',this.state);
         this.state = {...this.state, ...nextState};
         console.log('changed',this.state);
         this.render();
