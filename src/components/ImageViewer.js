@@ -9,7 +9,7 @@ class ImageViewer extends Component{
     }
 
     template() {
-        return  this.state.filepath ? `
+        return this.state.filepath ? `
         <div class="content">
             <img src="${FILE_PATH}${this.state.filepath}" alt="고냥이">
         </div>

@@ -4,6 +4,7 @@ import {data, dataId1} from "./mockup/mockup";
 import {api} from "./lib/api/api";
 import ImageViewer from "./components/ImageViewer";
 import Loading from "./components/Loading";
+import {cache} from "./lib/cache";
 
 class App{
     $target;
@@ -19,12 +20,18 @@ class App{
 
     }
     async init($target){
-        //mockup
-        this.state.data = data;
-        // this.state.data = await api.getRoot();
-
         this.$target = $target;
-
+        this.loading = new Loading(this.$target,{
+            load : this.load
+        });
+        this.loading.setState({load:true});
+        try{
+            cache.set('',await api.getRoot());
+            this.state.data = cache.get('');
+        }catch (e){
+            this.loading.setState({load:false});
+            console.log(e);
+        }
         this.breadcrumb = new Breadcrumb(this.$target, {
             path: this.state.path,
         });
@@ -36,9 +43,7 @@ class App{
             filepath : this.state.filepath,
             offModal : this.offModal,
         });
-        this.loading = new Loading(this.$target,{
-            load : this.load
-        });
+
     };
 
 
@@ -46,7 +51,6 @@ class App{
         const nextState = {...this.state};
         this.loading.setState({load:true});
         try {
-
             if (target.dataset.type === 'FILE') {
                 this.onFileClick(target, nextState);
             } else if (target.dataset.type === 'DIRECTORY') {
@@ -58,6 +62,7 @@ class App{
             this.loading.setState({load:false});
         }catch (e){
             console.log(e);
+            this.loading.setState({load:false});
         }
     };
 
@@ -81,9 +86,9 @@ class App{
     }
 
     async searchDir(id){
-        // //mockup
-        // return id ? dataId1 : data;
-        return id ? await api.getById(id) : data;
+        if(cache.has(id)) return cache.get(id);
+        cache.set(id,await api.getById(id));
+        return cache.get(id);
     }
     setState(nextState){
         this.state = {...nextState};
