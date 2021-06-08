@@ -1,6 +1,5 @@
 import Breadcrumb from "./components/Breadcrumb";
 import Nodes from "./components/Nodes";
-import {data, dataId1} from "./mockup/mockup";
 import {api} from "./lib/api/api";
 import ImageViewer from "./components/ImageViewer";
 import Loading from "./components/Loading";
@@ -28,6 +27,7 @@ class App{
         try{
             cache.set('',await api.getRoot());
             this.state.data = cache.get('');
+            this.loading.setState({load:false});
         }catch (e){
             this.loading.setState({load:false});
             console.log(e);
